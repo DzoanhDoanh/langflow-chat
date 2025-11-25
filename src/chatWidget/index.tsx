@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import ChatTrigger from "./chatTrigger";
 import ChatWindow from "./chatWindow";
 import { ChatMessageType } from "../types/chatWidget";
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require("uuid");
 
 export default function ChatWidget({
   api_key,
@@ -32,12 +32,12 @@ export default function ChatWidget({
   input_container_style,
   additional_headers,
   session_id,
-  start_open=false,
+  start_open = false,
 }: {
   api_key?: string;
-  input_value: string,
-  output_type: string,
-  input_type: string,
+  input_value: string;
+  output_type: string;
+  input_type: string;
   output_component?: string;
   send_icon_style?: React.CSSProperties;
   chat_position?: string;
@@ -731,7 +731,6 @@ video {
   overflow: scroll;
   overflow-x: clip;
   --tw-bg-opacity: 1;
-  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 0.5rem;
@@ -2137,10 +2136,12 @@ input::-ms-input-placeholder { /* Microsoft Edge */
 
 .markdown-body>*:first-child>.heading-element:first-child {
   margin-top: 0 !important;
-}`
+}`;
   return (
     <div style={{ position: "relative" }}>
-      <style dangerouslySetInnerHTML={{ __html: styles + markdownBody }}></style>
+      <style
+        dangerouslySetInnerHTML={{ __html: styles + markdownBody }}
+      ></style>
       <ChatTrigger
         triggerRef={triggerRef}
         open={open}

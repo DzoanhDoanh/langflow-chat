@@ -1,5 +1,9 @@
 import { Send } from "lucide-react";
-import { extractMessageFromOutput, getAnimationOrigin, getChatPosition } from "../utils";
+import {
+  extractMessageFromOutput,
+  getAnimationOrigin,
+  getChatPosition,
+} from "../utils";
 import React, { useEffect, useRef, useState } from "react";
 import { ChatMessageType } from "../../types/chatWidget";
 import ChatMessage from "./chatMessage";
@@ -24,8 +28,8 @@ export default function ChatWindow({
   send_button_style,
   online = true,
   open,
-  online_message = "We'll reply as soon as we can",
-  offline_message = "We're offline now",
+  online_message = "Tôi có thể giúp gì cho bạn?",
+  offline_message = "Chúng tôi hiện đang ngoại tuyến",
   window_title = "Chat",
   placeholder,
   input_style,
@@ -37,12 +41,12 @@ export default function ChatWindow({
   height = 650,
   tweaks,
   sessionId,
-  additional_headers
+  additional_headers,
 }: {
   api_key?: string;
-  output_type: string,
-  input_type: string,
-  output_component?: string,
+  output_type: string;
+  input_type: string;
+  output_component?: string;
   bot_message_style?: React.CSSProperties;
   send_icon_style?: React.CSSProperties;
   user_message_style?: React.CSSProperties;
@@ -70,7 +74,6 @@ export default function ChatWindow({
   height?: number;
   sessionId: React.MutableRefObject<string>;
   additional_headers?: { [key: string]: string };
-
 }) {
   const [value, setValue] = useState<string>("");
   const ref = useRef<HTMLDivElement>(null);
@@ -98,38 +101,61 @@ export default function ChatWindow({
       addMessage({ message: value, isSend: true });
       setSendingMessage(true);
       setValue("");
-      sendMessage(hostUrl, flowId, value, input_type, output_type, sessionId, output_component, tweaks, api_key, additional_headers)
+      sendMessage(
+        hostUrl,
+        flowId,
+        value,
+        input_type,
+        output_type,
+        sessionId,
+        output_component,
+        tweaks,
+        api_key,
+        additional_headers
+      )
         .then((res) => {
           if (
             res.data &&
             res.data.outputs &&
             Object.keys(res.data.outputs).length > 0 &&
-            res.data.outputs[0].outputs && res.data.outputs[0].outputs.length > 0
+            res.data.outputs[0].outputs &&
+            res.data.outputs[0].outputs.length > 0
           ) {
             const flowOutputs: Array<any> = res.data.outputs[0].outputs;
-            if (output_component &&
-              flowOutputs.map(e => e.component_id).includes(output_component)) {
-              Object.values(flowOutputs.find(e => e.component_id === output_component).outputs).forEach((output: any) => {
+            if (
+              output_component &&
+              flowOutputs.map((e) => e.component_id).includes(output_component)
+            ) {
+              Object.values(
+                flowOutputs.find((e) => e.component_id === output_component)
+                  .outputs
+              ).forEach((output: any) => {
                 addMessage({
                   message: extractMessageFromOutput(output),
                   isSend: false,
                 });
-              })
-            } else if (
-              flowOutputs.length === 1
-            ) {
+              });
+            } else if (flowOutputs.length === 1) {
               Object.values(flowOutputs[0].outputs).forEach((output: any) => {
                 addMessage({
                   message: extractMessageFromOutput(output),
                   isSend: false,
                 });
-              })
+              });
             } else {
               flowOutputs
                 .sort((a, b) => {
                   // Get the earliest timestamp from each flowOutput's outputs
-                  const aTimestamp = Math.min(...Object.values(a.outputs).map((output: any) => Date.parse(output.message?.timestamp)));
-                  const bTimestamp = Math.min(...Object.values(b.outputs).map((output: any) => Date.parse(output.message?.timestamp)));
+                  const aTimestamp = Math.min(
+                    ...Object.values(a.outputs).map((output: any) =>
+                      Date.parse(output.message?.timestamp)
+                    )
+                  );
+                  const bTimestamp = Math.min(
+                    ...Object.values(b.outputs).map((output: any) =>
+                      Date.parse(output.message?.timestamp)
+                    )
+                  );
                   return aTimestamp - bTimestamp; // Sort descending (newest first)
                 })
                 .forEach((flowOutput) => {
@@ -201,20 +227,50 @@ export default function ChatWindow({
         ref={ref}
         className="cl-window"
       >
-        <div className="cl-header">
-          {window_title}
-          <div className="cl-header-subtitle">
-            {online ? (
-              <>
-                <div className="cl-online-message"></div>
-                {online_message}
-              </>
-            ) : (
-              <>
-                <div className="cl-offline-message"></div>
-                {offline_message}
-              </>
-            )}
+        <div
+          className="cl-header"
+          style={{
+            backgroundColor: "#a00000",
+            color: "#fff",
+            display: "flex",
+            justifyContent: "start",
+            flexDirection: "row",
+            gap: 3,
+          }}
+        >
+          <div
+            className=""
+            style={{
+              backgroundColor: "#fff",
+              padding: "8px",
+              borderRadius: "9999px",
+              width: "50px",
+              height: "50px",
+            }}
+          >
+            <img
+              src="https://i.namu.wiki/i/zx0Y9idUoMXBYz1vmlRD8MQ4wtAhtjczAJbH6T7RVjZAhp_PII6owHwphYna_iLabtCGiiTMhfv9sEJ84gNoZA.webp"
+              alt="LangFlow Logo"
+              className="cl-header-logo"
+              width={"50px"}
+            />
+          </div>
+
+          <div>
+            {window_title}
+            <div className="cl-header-subtitle" style={{ color: "#fff" }}>
+              {online ? (
+                <>
+                  <div className="cl-online-message"></div>
+                  {online_message}
+                </>
+              ) : (
+                <>
+                  <div className="cl-offline-message"></div>
+                  {offline_message}
+                </>
+              )}
+            </div>
           </div>
         </div>
         <div className="cl-messages_container">
@@ -243,7 +299,11 @@ export default function ChatWindow({
             }}
             type="text"
             disabled={sendingMessage}
-            placeholder={sendingMessage ? (placeholder_sending || "Thinking...") : (placeholder || "Type your message...")}
+            placeholder={
+              sendingMessage
+                ? placeholder_sending || "Thinking..."
+                : placeholder || "Nhập câu hỏi của bạn tại đây..."
+            }
             style={input_style}
             ref={inputRef}
             className="cl-input-element"

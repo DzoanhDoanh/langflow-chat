@@ -11,7 +11,6 @@ export default function ChatMessage({
   bot_message_style,
   error_message_style,
 }: ChatMessageType) {
-
   return (
     <div
       className={
@@ -19,8 +18,17 @@ export default function ChatMessage({
       }
     >
       {isSend ? (
-        <div style={user_message_style} className="cl-user_message">
-          {message}
+        <div style={{ display: "flex", gap: 2 }}>
+          <div style={user_message_style} className="cl-user_message">
+            {message}
+          </div>
+          <img
+            src="https://i.namu.wiki/i/zx0Y9idUoMXBYz1vmlRD8MQ4wtAhtjczAJbH6T7RVjZAhp_PII6owHwphYna_iLabtCGiiTMhfv9sEJ84gNoZA.webp"
+            alt="LangFlow Logo"
+            className="cl-header-logo"
+            width={"30px"}
+            style={{ marginRight: "5px", marginLeft: "4px" }}
+          />
         </div>
       ) : error ? (
         <div style={error_message_style} className={"cl-error_message"}>
@@ -28,9 +36,18 @@ export default function ChatMessage({
         </div>
       ) : (
         <div style={bot_message_style} className={"cl-bot_message"}>
-          <Markdown 
-          className={"markdown-body prose flex flex-col word-break-break-word"}
-          remarkPlugins={[remarkGfm]}
+          <img
+            src="https://i.namu.wiki/i/zx0Y9idUoMXBYz1vmlRD8MQ4wtAhtjczAJbH6T7RVjZAhp_PII6owHwphYna_iLabtCGiiTMhfv9sEJ84gNoZA.webp"
+            alt="LangFlow Logo"
+            className="cl-header-logo"
+            width={"30px"}
+            style={{ marginRight: "5px" }}
+          />
+          <Markdown
+            className={
+              "markdown-body prose flex flex-col word-break-break-word"
+            }
+            remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeMathjax]}
           >
             {message}
