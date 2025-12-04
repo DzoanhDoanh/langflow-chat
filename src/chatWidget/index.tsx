@@ -33,6 +33,7 @@ export default function ChatWidget({
   additional_headers,
   session_id,
   start_open = false,
+  suggested_questions,
 }: {
   api_key?: string;
   input_value: string;
@@ -63,6 +64,7 @@ export default function ChatWidget({
   additional_headers?: { [key: string]: string };
   session_id?: string;
   start_open?: boolean;
+  suggested_questions?: string[];
 }) {
   const [open, setOpen] = useState(start_open);
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
@@ -2180,6 +2182,7 @@ input::-ms-input-placeholder { /* Microsoft Edge */
         position={chat_position}
         sessionId={sessionId}
         additional_headers={additional_headers}
+        suggested_questions={suggested_questions}
       />
     </div>
   );

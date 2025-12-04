@@ -18,7 +18,7 @@ export default function ChatMessage({
       }
     >
       {isSend ? (
-        <div style={{ display: "flex", gap: 2 }}>
+        <div style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
           <div style={user_message_style} className="cl-user_message">
             {message}
           </div>
@@ -26,8 +26,9 @@ export default function ChatMessage({
             src="https://i.namu.wiki/i/zx0Y9idUoMXBYz1vmlRD8MQ4wtAhtjczAJbH6T7RVjZAhp_PII6owHwphYna_iLabtCGiiTMhfv9sEJ84gNoZA.webp"
             alt="LangFlow Logo"
             className="cl-header-logo"
-            width={"30px"}
-            style={{ marginRight: "5px", marginLeft: "4px" }}
+            style={{
+              width: "30px",
+            }}
           />
         </div>
       ) : error ? (
@@ -35,23 +36,27 @@ export default function ChatMessage({
           {message}
         </div>
       ) : (
-        <div style={bot_message_style} className={"cl-bot_message"}>
+        <div style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
           <img
             src="https://i.namu.wiki/i/zx0Y9idUoMXBYz1vmlRD8MQ4wtAhtjczAJbH6T7RVjZAhp_PII6owHwphYna_iLabtCGiiTMhfv9sEJ84gNoZA.webp"
             alt="LangFlow Logo"
             className="cl-header-logo"
-            width={"30px"}
-            style={{ marginRight: "5px" }}
+            style={{
+              width: "32px",
+            }}
           />
-          <Markdown
-            className={
-              "markdown-body prose flex flex-col word-break-break-word"
-            }
-            remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeMathjax]}
-          >
-            {message}
-          </Markdown>
+          <div style={bot_message_style} className={"cl-bot_message"}>
+            <Markdown
+              className={
+                "markdown-body prose flex flex-col word-break-break-word"
+              }
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeMathjax]}
+              
+            >
+              {message}
+            </Markdown>
+          </div>
         </div>
       )}
     </div>

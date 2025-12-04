@@ -9,6 +9,7 @@ import { ChatMessageType } from "../../types/chatWidget";
 import ChatMessage from "./chatMessage";
 import { sendMessage } from "../../controllers";
 import ChatMessagePlaceholder from "../../chatPlaceholder";
+import SuggestedQuestions from "./suggestedQuestions";
 
 export default function ChatWindow({
   api_key,
@@ -42,6 +43,13 @@ export default function ChatWindow({
   tweaks,
   sessionId,
   additional_headers,
+  suggested_questions = [
+    "AI chatbot là gì",
+    "AI chatbot khác chatbot truyền thống thế nào?",
+    "Quy trình triển khai AI chatbot",
+    "Giá triển khai AI chatbot thế nào?",
+    "Kiểm tra hệ thống",
+  ],
 }: {
   api_key?: string;
   output_type: string;
@@ -74,12 +82,15 @@ export default function ChatWindow({
   height?: number;
   sessionId: React.MutableRefObject<string>;
   additional_headers?: { [key: string]: string };
+  suggested_questions?: string[];
 }) {
   const [value, setValue] = useState<string>("");
   const ref = useRef<HTMLDivElement>(null);
   const lastMessage = useRef<HTMLDivElement>(null);
   const [windowPosition, setWindowPosition] = useState({ left: "0", top: "0" });
   const inputRef = useRef<HTMLInputElement>(null); /* User input Ref */
+  const [showSuggestedQuestions, setShowSuggestedQuestions] = useState(true);
+
   useEffect(() => {
     if (triggerRef)
       setWindowPosition(
@@ -96,15 +107,25 @@ export default function ChatWindow({
 
   const [sendingMessage, setSendingMessage] = useState(false);
 
+  function handleSuggestedQuestionClick(question: string) {
+    setShowSuggestedQuestions(false);
+    // Send the suggested question
+    sendMessageText(question);
+  }
+
   function handleClick() {
-    if (value && value.trim() !== "") {
-      addMessage({ message: value, isSend: true });
+    sendMessageText(value);
+  }
+
+  function sendMessageText(textToSend: string) {
+    if (textToSend && textToSend.trim() !== "") {
+      addMessage({ message: textToSend, isSend: true });
       setSendingMessage(true);
       setValue("");
       sendMessage(
         hostUrl,
         flowId,
-        value,
+        textToSend,
         input_type,
         output_type,
         sessionId,
@@ -285,6 +306,15 @@ export default function ChatWindow({
               error={message.error}
             />
           ))}
+          {showSuggestedQuestions &&
+            messages.length === 0 &&
+            suggested_questions &&
+            suggested_questions.length > 0 && (
+              <SuggestedQuestions
+                questions={suggested_questions}
+                onQuestionClick={handleSuggestedQuestionClick}
+              />
+            )}
           {sendingMessage && (
             <ChatMessagePlaceholder bot_message_style={bot_message_style} />
           )}
