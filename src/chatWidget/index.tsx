@@ -598,34 +598,42 @@ video {
 
 .cl-trigger {
   display: flex;
-  height: 3rem;
-  width: 3rem;
+  height: 56px;
+  width: 56px;
   align-items: center;
   justify-content: center;
-  border-radius: 9999px;
+  border-radius: 50%;
   --tw-bg-opacity: 1;
-  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+  background: linear-gradient(135deg, rgb(59 130 246 / var(--tw-bg-opacity)) 0%, rgb(37 99 235 / var(--tw-bg-opacity)) 100%);
   font-weight: 700;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4), 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: none;
+  cursor: pointer;
 }
 
 .cl-trigger:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(29 78 216 / var(--tw-bg-opacity));
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5), 0 2px 6px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, rgb(37 99 235) 0%, rgb(29 78 216) 100%);
+}
+
+.cl-trigger:active {
+  transform: scale(0.95);
 }
 
 .cl-window {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border-radius: 1rem;
-  --tw-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  --tw-shadow-colored: 0 0 10px var(--tw-shadow-color);
+  border-radius: 16px;
+  --tw-shadow: 0 10px 40px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1);
+  --tw-shadow-colored: 0 10px 40px var(--tw-shadow-color), 0 2px 8px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  background-color: rgb(255 255 255);
+  border: 1px solid rgba(229, 231, 235, 0.5);
 }
 
 .cl-scale-100 {
@@ -656,31 +664,34 @@ video {
   "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
   sans-serif;
   position: absolute;
-  transition-property: all;
-  transition-duration: 300ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform, opacity;
 }
 
 .cl-online-message {
-  height: 0.5rem;
-  width: 0.5rem;
-  border-radius: 9999px;
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
   --tw-bg-opacity: 1;
   background-color: rgb(34 197 94 / var(--tw-bg-opacity));
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3);
+  flex-shrink: 0;
 }
 
 .cl-offline-message {
-  height: 0.5rem;
-  width: 0.5rem;
-  border-radius: 9999px;
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
   --tw-bg-opacity: 1;
   background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3);
+  flex-shrink: 0;
 }
 
 .cl-send-icon {
-  margin-right: 1.25rem;
-  height: 1.5rem;
-  width: 1.5rem;
+  height: 20px;
+  width: 20px;
+  transition: all 0.2s ease;
 }
 
 .cl-notsending-message {
@@ -698,30 +709,26 @@ video {
 .cl-header-subtitle {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 300;
-  color: rgb(107 114 128);
+  gap: 6px;
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.95);
 }
 
 .cl-header {
   z-index: 10;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding: 0;
   font-size: 1.125rem;
   line-height: 1.75rem;
   font-weight: 400;
   color: rgb(17 24 39);
-  --tw-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  --tw-shadow-colored: 0 0 10px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  border-radius: 16px 16px 0 0;
 }
 
 .cl-messages_container {
@@ -733,12 +740,14 @@ video {
   overflow: scroll;
   overflow-x: clip;
   --tw-bg-opacity: 1;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  flex: 1;
 }
 
 .cl-messages_container::-webkit-scrollbar {
@@ -754,15 +763,17 @@ video {
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  padding: 8px 12px;
+  gap: 8px;
 }
 
 .cl-chat-message {
   display: flex;
   width: 100%;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 @-webkit-keyframes pulse {
@@ -791,80 +802,88 @@ video {
 }
 
 .cl-input-element {
-  height: 100%;
-  width: 100%;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
-  font-weight: 300;
-  background-color: rgb(255 255 255);
+  flex: 1;
+  padding: 12px 16px;
+  font-weight: 400;
+  font-size: 14px;
+  background-color: rgb(249 250 251);
   color: rgb(17 24 39);
+  border: 1px solid rgb(229 231 235);
+  border-radius: 20px;
+  transition: all 0.2s ease;
 }
 
 .cl-input-element:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
+  background-color: rgb(255 255 255);
+  border-color: rgb(59 130 246);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.cl-input-element:disabled {
+  background-color: rgb(243 244 246);
+  cursor: not-allowed;
 }
 
 .cl-user_message {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  max-width: 90%;
+  max-width: 100%;
   -webkit-column-break-before: all;
           break-before: all;
-  border-radius: 0.75rem;
-  border-top-right-radius: 0.125rem;
+  border-radius: 18px;
+  border-bottom-right-radius: 4px;
   --tw-bg-opacity: 1;
-  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  text-align: right;
+  background: linear-gradient(135deg, rgb(59 130 246 / var(--tw-bg-opacity)) 0%, rgb(37 99 235 / var(--tw-bg-opacity)) 100%);
+  padding: 10px 14px;
+  text-align: left;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .cl-error_message {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  max-width: 90%;
+  max-width: 100%;
   -webkit-column-break-before: all;
           break-before: all;
-  border-radius: 0.75rem;
-  border-top-left-radius: 0.125rem;
+  border-radius: 18px;
+  border-bottom-left-radius: 4px;
   --tw-bg-opacity: 1;
-  background-color: rgb(248 113 113 / var(--tw-bg-opacity));
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+  padding: 10px 14px;
   text-align: left;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .cl-bot_message {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  max-width: 90%;
+  max-width: 100%;
   -webkit-column-break-before: all;
           break-before: all;
-  border-radius: 0.75rem;
-  border-top-left-radius: 0.125rem;
+  border-radius: 18px;
+  border-bottom-left-radius: 4px;
   --tw-bg-opacity: 1;
-  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+  padding: 10px 14px;
   text-align: left;
   --tw-text-opacity: 1;
   color: rgb(31 41 55 / var(--tw-text-opacity));
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .origin-bottom {

@@ -37,24 +37,24 @@ export default function SuggestedQuestions({
             backgroundColor: questionColors[index % questionColors.length],
             color: "#ffffff",
             border: "none",
-            borderRadius: "6px",
-            padding: "8px 12px",
+            borderRadius: "12px",
+            padding: "10px 16px",
             textAlign: "left",
             cursor: "pointer",
             fontSize: "13px",
-            fontWeight: "400",
+            fontWeight: "500",
             lineHeight: "1.4",
             transition: "all 0.2s ease",
-            boxShadow: "none",
+            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
             maxWidth: "fit-content",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.transform = "translateY(-1px)";
-            e.currentTarget.style.boxShadow = "0 2px 4px rgba(0, 0, 0, 0.15)";
+            e.currentTarget.style.transform = "translateY(-2px) scale(1.02)";
+            e.currentTarget.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "translateY(0)";
-            e.currentTarget.style.boxShadow = "none";
+            e.currentTarget.style.transform = "translateY(0) scale(1)";
+            e.currentTarget.style.boxShadow = "0 2px 4px rgba(0, 0, 0, 0.1)";
           }}
         >
           {question}

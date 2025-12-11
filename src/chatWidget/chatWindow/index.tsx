@@ -251,35 +251,63 @@ export default function ChatWindow({
         <div
           className="cl-header"
           style={{
-            backgroundColor: "#a00000",
+            background: "linear-gradient(135deg, #a00000 0%, #cc0000 100%)",
             color: "#fff",
             display: "flex",
+            alignItems: "center",
             justifyContent: "start",
             flexDirection: "row",
-            gap: 3,
+            gap: "12px",
+            padding: "16px 20px",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
           }}
         >
           <div
-            className=""
             style={{
               backgroundColor: "#fff",
-              padding: "8px",
-              borderRadius: "9999px",
-              width: "50px",
-              height: "50px",
+              padding: "4px",
+              borderRadius: "50%",
+              width: "48px",
+              height: "48px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              boxShadow: "0 2px 6px rgba(0, 0, 0, 0.2)",
+              flexShrink: 0,
             }}
           >
             <img
               src="https://i.namu.wiki/i/zx0Y9idUoMXBYz1vmlRD8MQ4wtAhtjczAJbH6T7RVjZAhp_PII6owHwphYna_iLabtCGiiTMhfv9sEJ84gNoZA.webp"
               alt="LangFlow Logo"
               className="cl-header-logo"
-              width={"50px"}
+              style={{
+                width: "40px",
+                height: "40px",
+                borderRadius: "50%",
+                objectFit: "contain",
+              }}
             />
           </div>
 
-          <div>
-            {window_title}
-            <div className="cl-header-subtitle" style={{ color: "#fff" }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div
+              style={{
+                fontSize: "18px",
+                fontWeight: "600",
+                lineHeight: "1.2",
+                marginBottom: "4px",
+              }}
+            >
+              {window_title}
+            </div>
+            <div
+              className="cl-header-subtitle"
+              style={{
+                color: "rgba(255, 255, 255, 0.95)",
+                fontSize: "13px",
+                fontWeight: "400",
+              }}
+            >
               {online ? (
                 <>
                   <div className="cl-online-message"></div>
@@ -331,7 +359,7 @@ export default function ChatWindow({
             disabled={sendingMessage}
             placeholder={
               sendingMessage
-                ? placeholder_sending || "Thinking..."
+                ? placeholder_sending || "Đang suy nghĩ..."
                 : placeholder || "Nhập câu hỏi của bạn tại đây..."
             }
             style={input_style}
@@ -339,12 +367,45 @@ export default function ChatWindow({
             className="cl-input-element"
           />
           <button
-            style={send_button_style}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "40px",
+              height: "40px",
+              borderRadius: "50%",
+              border: "none",
+              backgroundColor: sendingMessage
+                ? "rgb(209, 213, 219)"
+                : "rgb(59, 130, 246)",
+              color: "white",
+              cursor: sendingMessage ? "not-allowed" : "pointer",
+              transition: "all 0.2s ease",
+              flexShrink: 0,
+              ...send_button_style,
+            }}
             disabled={sendingMessage}
             onClick={handleClick}
+            onMouseEnter={(e) => {
+              if (!sendingMessage) {
+                e.currentTarget.style.backgroundColor = "rgb(37, 99, 235)";
+                e.currentTarget.style.transform = "scale(1.05)";
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!sendingMessage) {
+                e.currentTarget.style.backgroundColor = "rgb(59, 130, 246)";
+                e.currentTarget.style.transform = "scale(1)";
+              }
+            }}
           >
             <Send
-              style={send_icon_style}
+              style={{
+                width: "20px",
+                height: "20px",
+                stroke: "white",
+                ...send_icon_style,
+              }}
               className={
                 "cl-send-icon " +
                 (!sendingMessage
